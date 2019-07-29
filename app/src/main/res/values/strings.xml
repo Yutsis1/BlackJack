@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Test</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="GameName">BlackJack</string>
+    <string name="AcceptButton">Accept</string>
+    <string name="InputName">Input Player Name</string>
+    <string name="MoreButton">More</string>
+    <string name="CheckButton">Check</string>
+    <string name="Player1Field">PlayerField</string>
+    <string name="ComputerField">Computer Field</string>
+    <string name="refresh">Refresh</string>
+</resources>
