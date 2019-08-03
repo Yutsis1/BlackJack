@@ -9,6 +9,6 @@
     <string name="MoreButton">More</string>
     <string name="CheckButton">Check</string>
     <string name="Player1Field">PlayerField</string>
-    <string name="ComputerField">Computer Field</string>
+    <string name="ComputerField">Diller</string>
     <string name="refresh">Refresh</string>
 </resources>

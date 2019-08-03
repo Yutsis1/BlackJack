@@ -91,12 +91,24 @@ class GameFragment : Fragment() {
     }
 //  Функция проверки очков
     fun CheckPlayerDeck(){
-        if (PlayerField.text.toString().toInt()>2 && PlayerField.text.toString().toInt()<22) {
-            ComputerField.text="you win"
+        if (PlayerField.text.toString().toInt()>GameLogicAI() && PlayerField.text.toString().toInt()< 22) {
+            PlayerField.text="you win"
         } else{
-            ComputerField.text="you lose"
+            PlayerField.text="you lose"
         }
 
+    }
+
+    fun GameLogicAI(): Int {
+        var cardFromDeck = Random.nextInt(2,12)
+        var BlackJackDeck = Random.nextInt(2,12) + cardFromDeck
+        if (BlackJackDeck < 12) {
+            cardFromDeck = Random.nextInt(2,12)
+            BlackJackDeck += cardFromDeck
+            return BlackJackDeck
+        } else{
+            return BlackJackDeck
+        }
     }
 
 
