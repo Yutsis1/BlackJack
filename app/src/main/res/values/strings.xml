@@ -11,4 +11,7 @@
     <string name="Player1Field">PlayerField</string>
     <string name="ComputerField">Diller</string>
     <string name="refresh">Refresh</string>
+    <string name="WinMassage">You Win</string>
+    <string name="LoseMassage">You Lose</string>
+    <string name="DrawnGame">Drawn Game</string>
 </resources>

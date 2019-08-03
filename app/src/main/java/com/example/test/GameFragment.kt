@@ -66,40 +66,57 @@ class GameFragment : Fragment() {
             CheckPlayerDeck()
         }
         RefreshButton.setOnClickListener {
-            // ToDo Выяснить, почему эта штука возвращает hex код
-            ComputerField.text=R.string.GameName.toString()
-            PlayerField.text= arguments!!.getString(PLAYERNAME)
-            mCount=0
+           RefreshFun()
         }
 
 
-
+// присваеваем значения имени игрока
         val model = arguments!!.getString(PLAYERNAME) as String
         PlayerField.text=model
         return view
     }
 // Функция для работы вытягивания карт из колоды
+//    ToDo поменять логику работы, чтобы данные хранились в переменных, а не в полях
     fun MoreForPlayer(){
-        val cardFromDeck = Random.nextInt(2, 12)
-        if (mCount<1) {
-            PlayerField.text = cardFromDeck.toString()
-        } else{
-            val supCount: Int = PlayerField.text.toString().toInt()
-            PlayerField.text =(cardFromDeck+supCount).toString()
+        if (PlayerField.text.toString() == getString(R.string.WinMassage) || PlayerField.text.toString() == getString(R.string.LoseMassage)){
+            RefreshFun()
+        } else {
+            val cardFromDeck = Random.nextInt(2, 12)
+            if (mCount < 1) {
+                PlayerField.text = cardFromDeck.toString()
+            } else {
+                val supCount: Int = PlayerField.text.toString().toInt()
+                PlayerField.text = (cardFromDeck + supCount).toString()
+            }
+            mCount++
         }
-        mCount++
     }
 //  Функция проверки очков
+
     fun CheckPlayerDeck(){
-        if (PlayerField.text.toString().toInt()>GameLogicAI() && PlayerField.text.toString().toInt()< 22) {
-            PlayerField.text="you win"
-        } else{
-            PlayerField.text="you lose"
+        if (PlayerField.text.toString() == arguments!!.getString(PLAYERNAME) as String
+                || PlayerField.text.toString() == getString(R.string.WinMassage)
+                || PlayerField.text == getString(R.string.LoseMassage)) {
+
+            RefreshFun()
+        } else {
+            val DillerResult : Int = GameLogickAI()
+            if ((PlayerField.text.toString().toInt() > DillerResult && PlayerField.text.toString().toInt() < 22)
+                    && DillerResult < 22) {
+                PlayerField.text = getString(R.string.WinMassage)
+                ComputerField.text = DillerResult.toString()
+            } else if (PlayerField.text.toString().toInt() < DillerResult || (DillerResult < 22 && PlayerField.text.toString().toInt() > 21)) {
+                PlayerField.text = getString(R.string.LoseMassage)
+                ComputerField.text = DillerResult.toString()
+            } else {
+                PlayerField.text = getString(R.string.DrawnGame)
+            }
+
         }
 
     }
 
-    fun GameLogicAI(): Int {
+    fun GameLogickAI(): Int {
         var cardFromDeck = Random.nextInt(2,12)
         var BlackJackDeck = Random.nextInt(2,12) + cardFromDeck
         if (BlackJackDeck < 12) {
@@ -109,6 +126,12 @@ class GameFragment : Fragment() {
         } else{
             return BlackJackDeck
         }
+    }
+
+    fun RefreshFun(){
+        ComputerField.text=getString(R.string.GameName)
+        PlayerField.text= arguments!!.getString(PLAYERNAME)
+        mCount=0
     }
 
 
