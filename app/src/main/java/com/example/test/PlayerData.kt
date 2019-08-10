@@ -1,4 +1,10 @@
 package com.example.test
 
+// data class for
 
-data class PersonName(val GameNumber: Int, val name: String, val score: Int)
+data class PlayerData(val GameNumber: Int,
+                      val name: String,
+                      val score: Int,
+                      val wins: Int,
+                      val loses: Int,
+                      val drawns: Int)

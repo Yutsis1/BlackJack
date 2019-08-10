@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.example.test.PersonName
+import com.example.test.PlayerData
 import kotlinx.android.synthetic.main.fragment_register_blankt.*
 
 /**
