@@ -28,7 +28,10 @@ class GameFragment : Fragment() {
     private lateinit var PlayerField : TextView
     private lateinit var ComputerField: TextView
 
-    private var mCount: Int = 0
+    //переменные нужные для работы  логики игры
+    private var PlayerScore: Byte = 0
+    private var DillerScore: Byte = 0
+    private var mCount: Byte = 0
 
     companion object{
 
@@ -49,7 +52,7 @@ class GameFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
 
-        val view=inflater!!.inflate(R.layout.fragment_game, container, false)
+        val view=inflater.inflate(R.layout.fragment_game, container, false)
 //        инитим текстовые поля
         PlayerField= view.findViewById(R.id.playerField)
         ComputerField=view.findViewById(R.id.computerField)
@@ -78,7 +81,8 @@ class GameFragment : Fragment() {
 // Функция для работы вытягивания карт из колоды
 //    ToDo поменять логику работы, чтобы данные хранились в переменных, а не в полях
     fun MoreForPlayer(){
-        if (PlayerField.text.toString() == getString(R.string.WinMassage) || PlayerField.text.toString() == getString(R.string.LoseMassage)){
+        if (PlayerField.text.toString() == getString(R.string.WinMassage)
+                || PlayerField.text.toString() == getString(R.string.LoseMassage)){
             RefreshFun()
         } else {
             val cardFromDeck = Random.nextInt(2, 12)
