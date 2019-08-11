@@ -42,7 +42,10 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     fun  updatePlayer(player: PlayerData){
         val db = this.writableDatabase
         val values = ContentValues()
+        // ToDo add put gamecount and id
+        values.put(COLUMN_USER_ID, player.id)
         values.put(COLUMN_USER_NAME, player.name)
+        values.put(COLUMN_USER_GAME_COUNT,player.GameCount)
         values.put(COLUMN_USER_SCORE, player.score)
         values.put(COLUM_USER_WINS, player.wins)
         values.put(COLUM_USER_LOSES, player.loses)
@@ -52,6 +55,50 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             TABLE_USER, values, "$COLUMN_USER_ID = ?",
             arrayOf(player.name.toString())
         )
+    }
+
+    fun getAllrows(): ArrayList<PlayerData>{
+        // array of columns to fetch
+        val columns = arrayOf(COLUMN_USER_ID, COLUM_USER_WINS, COLUMN_USER_NAME, COLUM_USER_LOSES, COLUM_USER_DRAWNS)
+
+        // sorting orders
+        val sortOrder = "$COLUMN_USER_NAME ASC"
+        val userList = ArrayList<PlayerData>()
+
+        val db = this.readableDatabase
+
+        // query the user table
+        val cursor = db.query(
+            TABLE_USER, //Table to query
+            columns,            //columns to return
+            null,     //columns for the WHERE clause
+            null,  //The values for the WHERE clause
+            null,      //group the rows
+            null,       //filter by row groups
+            sortOrder
+        )         //The sort order
+        if (cursor.moveToFirst()) {
+            do {
+                val user = PlayerData(
+                    id = cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)).toInt(),
+                    GameCount = cursor.getInt(cursor.getColumnIndex(COLUMN_USER_GAME_COUNT)),
+                    score = cursor.getInt(cursor.getColumnIndex(COLUMN_USER_SCORE)),
+                    name = cursor.getString(cursor.getColumnIndex(COLUMN_USER_NAME)),
+                    wins = cursor.getInt(cursor.getColumnIndex(COLUM_USER_WINS)),
+                    loses = cursor.getInt(cursor.getColumnIndex(COLUM_USER_LOSES)),
+                    drawns = cursor.getInt(cursor.getColumnIndex(COLUM_USER_DRAWNS))
+                )
+
+                userList.add(user)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+
+
+        return userList
+
+
     }
 
 
@@ -68,6 +115,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
        // Table Columns names
         val COLUMN_USER_ID = "user_id"
+        val COLUMN_USER_GAME_COUNT ="user_game_count"
         val COLUMN_USER_NAME = "user_name"
         val COLUMN_USER_SCORE = "user_score"
         val COLUM_USER_WINS = "user_wins"
