@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.example.test.PlayerData
+import androidx.fragment.app.FragmentActivity
 import kotlinx.android.synthetic.main.fragment_register_blankt.*
+
+import com.example.test.DBHalper
 
 /**
  * A simple [Fragment] subclass.
@@ -38,6 +40,7 @@ class RegisterBlank : Fragment() {
 //            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
 //        }
         this.listener = context as? AcceptPlaerName
+
     }
 
     override fun onCreateView(
@@ -52,7 +55,9 @@ class RegisterBlank : Fragment() {
         AcceptButton.setOnClickListener{
             listener!!.AcceptPlayerName(PlayerNameInput.text.toString())
             Toast.makeText(view.context, "button_pressed", Toast.LENGTH_SHORT).show()
+
             GetPlayerName()
+//            if ()
 
         }
 

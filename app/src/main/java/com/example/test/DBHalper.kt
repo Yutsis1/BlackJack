@@ -5,11 +5,16 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.content.ContentValues
 
-
-class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION){
+// Todo add gamecount and id, wins, drawns, loses
+class DBHalper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION){
     private val CREATE_USER_TABLE = ("CREATE TABLE " + TABLE_USER + "("
-            + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_USER_NAME + " TEXT,"
-            + COLUMN_USER_SCORE + " TEXT," + ")")
+            + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COLUMN_USER_NAME + " TEXT,"
+            + COLUMN_USER_SCORE + " INTEGER,"
+            + COLUMN_USER_GAME_COUNT+ " INTEGER,"
+            + COLUM_USER_WINS + " INTEGER,"
+            + COLUM_USER_LOSES + " INTEGER,"
+            + COLUM_USER_DRAWNS + " INTEGER,"+ ")")
 
     // drop table sql query
     private val DROP_USER_TABLE = "DROP TABLE IF EXISTS $TABLE_USER"
@@ -39,10 +44,58 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.insert(TABLE_USER, null, values)
         db.close()
     }
+
+    fun checkExistingPlayer(nameOfUser: String): Boolean {
+        val columns = arrayOf(COLUMN_USER_ID, COLUM_USER_WINS, COLUMN_USER_NAME, COLUM_USER_LOSES, COLUM_USER_DRAWNS)
+
+        // sorting orders
+        val sortOrder = "$COLUMN_USER_NAME ASC"
+
+
+        val db = this.readableDatabase
+
+        // query the user table
+        val cursor = db.query(
+            TABLE_USER, //Table to query
+            columns,            //columns to return
+            null,     //columns for the WHERE clause
+            null,  //The values for the WHERE clause
+            null,      //group the rows
+            null,       //filter by row groups
+            sortOrder
+        )         //The sort order
+        if (cursor.moveToFirst()) {
+            do {
+                val user = PlayerData(
+                    id = cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)).toInt(),
+                    GameCount = cursor.getInt(cursor.getColumnIndex(COLUMN_USER_GAME_COUNT)),
+                    score = cursor.getInt(cursor.getColumnIndex(COLUMN_USER_SCORE)),
+                    name = cursor.getString(cursor.getColumnIndex(COLUMN_USER_NAME)),
+                    wins = cursor.getInt(cursor.getColumnIndex(COLUM_USER_WINS)),
+                    loses = cursor.getInt(cursor.getColumnIndex(COLUM_USER_LOSES)),
+                    drawns = cursor.getInt(cursor.getColumnIndex(COLUM_USER_DRAWNS))
+                )
+                if (user.name == nameOfUser){
+                    cursor.close()
+                    db.close()
+                    return true
+
+                }
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return false
+
+
+
+
+
+    }
+
     fun  updatePlayer(player: PlayerData){
         val db = this.writableDatabase
         val values = ContentValues()
-        // ToDo add put gamecount and id
         values.put(COLUMN_USER_ID, player.id)
         values.put(COLUMN_USER_NAME, player.name)
         values.put(COLUMN_USER_GAME_COUNT,player.GameCount)
