@@ -1,0 +1,7 @@
+v0.1
+In application was added 2 fragments:
+    1. Register Blank, where player should add his name
+    2. Game. On this screen player will play in BlackJack
+AI very simple. His tactic is take two cards, if summary score of this cards less then 15, it take one more card
+v0.2
+Application have SQLite DataBase for Players statistic

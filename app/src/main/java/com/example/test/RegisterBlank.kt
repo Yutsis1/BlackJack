@@ -33,7 +33,8 @@ class RegisterBlank : Fragment() {
 //  крашит приложение, и не залетает в исключение, хз что
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-//    стандартный генерируемый код не работает, лучше использовать что-то другое
+
+//    стандартный генерируемый код не работает, потому что AcceptPlaerName не импломентируемо
 //        if (context is AcceptPlaerName) {
 //            listener = context
 //        } else {
@@ -57,7 +58,6 @@ class RegisterBlank : Fragment() {
             Toast.makeText(view.context, "button_pressed", Toast.LENGTH_SHORT).show()
 
             GetPlayerName()
-//            if ()
 
         }
 

@@ -1,0 +1,5 @@
+v0.2
+I have 2 Fragments and i made DBHalper class for working with players database. From Fragment you can't take context for DBHalper.
+Ways to resolve this trouble:
+    *Make service for communicate between Activity and Fragment
+    *Make function in Activity which will take PlayerDate and give it into fragments( Actual. Was chosen because easily )

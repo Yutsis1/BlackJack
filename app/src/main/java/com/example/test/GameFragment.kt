@@ -37,14 +37,24 @@ class GameFragment : Fragment() {
 
         private const val PLAYERNAME = "model"
 
-        fun newInstance(PlayerName: String):GameFragment{
+        fun makeGameFragment(playerName: String):GameFragment{
             val args= Bundle()
             args.putString(
-                PLAYERNAME, PlayerName)
+                PLAYERNAME, playerName)
             val fragment = GameFragment()
             fragment.arguments=args
             return fragment
         }
+
+        fun makeGameFragment(playerData: PlayerData):GameFragment{
+            val fragment = GameFragment()
+//            ToDo update logic of adding arguments
+//            val args =
+//            fragment.arguments =
+            return fragment
+        }
+
+
     }
 
     override fun onCreateView(inflater: LayoutInflater,

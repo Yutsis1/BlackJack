@@ -1,0 +1,19 @@
+DBHalper
+    addPlayer(player: PlayerData)- add new player at SQLite table
+    checkExistingPlayer(nameOfUser: String): Boolean - return True if Player exist
+    getPlayer(nameOfUser: String):PlayerData - get player by name
+    getUserID(nameOfUser: String):Int? - get player id by name
+    getLastID():Int - get last id in SQLite table
+    updatePlayer(player: PlayerData) - input new data by player in SQLite table
+    getAllrows(): ArrayList<PlayerData> - return list of ofl players
+GameFragment
+     makeGameFragment(playerName: String):GameFragment
+     makeGameFragment(playerData: PlayerData):GameFragment - make Fragment by player Name or playerData class
+     MoreForPlayer() - add card to player
+     CheckPlayerDeck() - checking player hand and computer hand
+     GameLogickAI(): Int - return computer's game score
+     RefreshFun() - refresh table
+RegisterBlank
+    GetPlayerName() - take name from EditText
+    interfaces
+        AcceptPlayerName(personName: String)
