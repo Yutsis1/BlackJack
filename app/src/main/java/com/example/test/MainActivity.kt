@@ -33,8 +33,8 @@ class MainActivity : AppCompatActivity(), RegisterBlank.AcceptPlaerName {
                 .commit()
         } else {
             val detailFragment = GameFragment.makeGameFragment(personName)
-            val newPlayer: PlayerData = PlayerData(
-                id = dbHalper.getLastID() + 1,
+            val newPlayer = PlayerData(
+                id = 0 ,
                 GameCount = 0,
                 name = personName,
                 score = 0,
