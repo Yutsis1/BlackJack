@@ -33,6 +33,11 @@ class MainActivity : AppCompatActivity(), RegisterBlank.AcceptPlaerName {
                 .commit()
         } else {
             val detailFragment = GameFragment.makeGameFragment(personName)
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.root_layout, detailFragment, "Game")
+                .addToBackStack(null)
+                .commit()
             val newPlayer = PlayerData(
                 id = 0 ,
                 GameCount = 0,
@@ -44,11 +49,7 @@ class MainActivity : AppCompatActivity(), RegisterBlank.AcceptPlaerName {
             )
             dbHalper.addPlayer(newPlayer)
 
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.root_layout, detailFragment, "Game")
-                .addToBackStack(null)
-                .commit()
+
         }
 
 

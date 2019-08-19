@@ -78,7 +78,15 @@ class DBHalper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
     }
 
     fun getPlayer(nameOfUser: String):PlayerData{
-        val columns = arrayOf(COLUMN_USER_ID, COLUM_USER_WINS, COLUMN_USER_NAME, COLUM_USER_LOSES, COLUM_USER_DRAWNS)
+        val columns = arrayOf(
+            COLUMN_USER_ID,
+            COLUMN_USER_GAME_COUNT,
+            COLUMN_USER_NAME,
+            COLUMN_USER_SCORE,
+            COLUM_USER_WINS,
+            COLUMN_USER_NAME,
+            COLUM_USER_LOSES,
+            COLUM_USER_DRAWNS)
         // sorting orders
         val sortOrder = "$COLUMN_USER_NAME ASC"
 

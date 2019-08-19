@@ -48,9 +48,11 @@ class GameFragment : Fragment() {
 
         fun makeGameFragment(playerData: PlayerData):GameFragment{
             val fragment = GameFragment()
-//            ToDo update logic of adding arguments
-//            val args =
-//            fragment.arguments =
+            val args= Bundle()
+            args.putString(
+                PLAYERNAME, playerData.name)
+
+            fragment.arguments=args
             return fragment
         }
 
