@@ -1,15 +1,16 @@
 package com.example.test
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 class MainActivity : AppCompatActivity(), RegisterBlank.AcceptPlaerName {
-    private val activity = this@MainActivity
-    private var dbHalper: DBHalper = DBHalper(activity)
+    private lateinit var dbHalper: DBHalper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        dbHalper = DBHalper(this as Context)
 
 
         if (savedInstanceState == null) {
