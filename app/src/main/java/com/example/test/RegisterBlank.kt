@@ -54,20 +54,14 @@ class RegisterBlank : Fragment() {
         val PlayerNameInput: EditText = view.findViewById(R.id.PlayerNameInput)
 
         AcceptButton.setOnClickListener{
-            listener!!.AcceptPlayerName(PlayerNameInput.text.toString())
+            listener?.AcceptPlayerName(PlayerNameInput.text.toString())
             Toast.makeText(view.context, "button_pressed", Toast.LENGTH_SHORT).show()
-
-            GetPlayerName()
-
         }
 
         return view
     }
 
-    fun GetPlayerName(){
-        val PlayerName = PlayerNameInput.text.toString()
-        listener?.AcceptPlayerName(PlayerName)
-    }
+
 
     interface AcceptPlaerName {
         fun AcceptPlayerName(personName: String)
