@@ -14,4 +14,5 @@
     <string name="WinMassage">You Win</string>
     <string name="LoseMassage">You Lose</string>
     <string name="DrawnGame">Drawn Game</string>
+    <string name="Save">Save</string>
 </resources>

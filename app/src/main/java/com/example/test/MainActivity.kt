@@ -53,6 +53,9 @@ class MainActivity : AppCompatActivity(), RegisterBlank.AcceptPlaerName {
 
         }
 
+    }
+
+    fun fromFragmentData(playerData: PlayerData){
 
     }
 

@@ -25,13 +25,17 @@ class GameFragment : Fragment() {
     private lateinit var MoreButton: Button
     private lateinit var CheckButton: Button
     private lateinit var RefreshButton: Button
+    private lateinit var SaveButton: Button
     private lateinit var PlayerField : TextView
     private lateinit var ComputerField: TextView
 
     //переменные нужные для работы  логики игры
-    private var PlayerScore: Byte = 0
-    private var DillerScore: Byte = 0
-    private var mCount: Byte = 0
+    private var playerScore: Int = 0
+    private var gameCount: Int = 0
+    private var winCount: Int = 0
+    private var loseCount: Int = 0
+    private var drwnCount: Int = 0
+    private var mCount: Int = 0
 
     companion object{
 
@@ -65,6 +69,10 @@ class GameFragment : Fragment() {
         // Inflate the layout for this fragment
 
         val view=inflater.inflate(R.layout.fragment_game, container, false)
+        // присваеваем значения имени игрока
+        val playerName = arguments!!.getString(PLAYERNAME) as String
+        PlayerField.text=playerName
+
 //        инитим текстовые поля
         PlayerField= view.findViewById(R.id.playerField)
         ComputerField=view.findViewById(R.id.computerField)
@@ -73,6 +81,7 @@ class GameFragment : Fragment() {
         MoreButton=view.findViewById(R.id.moreButton)
         CheckButton=view.findViewById(R.id.checkButton)
         RefreshButton=view.findViewById(R.id.refreshBtn)
+        SaveButton=view.findViewById(R.id.saveBtn)
 //          настраиваем кликабильность
         MoreButton.setOnClickListener {
             MoreForPlayer()
@@ -83,16 +92,19 @@ class GameFragment : Fragment() {
         RefreshButton.setOnClickListener {
            RefreshFun()
         }
+//        Saving data of this player
+        SaveButton.setOnClickListener {
+//            make playerData class
+            val playerData = PlayerData(0, gameCount, playerName, playerScore, winCount , loseCount, drwnCount)
+            toActivity(playerData)
+        }
 
 
-// присваеваем значения имени игрока
-        val model = arguments!!.getString(PLAYERNAME) as String
-        PlayerField.text=model
+
         return view
     }
 // Функция для работы вытягивания карт из колоды
-//    ToDo поменять логику работы, чтобы данные хранились в переменных, а не в полях
-    fun MoreForPlayer(){
+    private fun MoreForPlayer(){
         if (PlayerField.text.toString() == getString(R.string.WinMassage)
                 || PlayerField.text.toString() == getString(R.string.LoseMassage)){
             RefreshFun()
@@ -109,7 +121,8 @@ class GameFragment : Fragment() {
     }
 //  Функция проверки очков
 
-    fun CheckPlayerDeck(){
+    private fun CheckPlayerDeck(){
+
         if (PlayerField.text.toString() == arguments!!.getString(PLAYERNAME) as String
                 || PlayerField.text.toString() == getString(R.string.WinMassage)
                 || PlayerField.text == getString(R.string.LoseMassage)) {
@@ -117,22 +130,32 @@ class GameFragment : Fragment() {
             RefreshFun()
         } else {
             val DillerResult : Int = GameLogickAI()
-            if ((PlayerField.text.toString().toInt() > DillerResult && PlayerField.text.toString().toInt() < 22)
-                    && DillerResult < 22) {
+            val playerRes = PlayerField.text.toString().toInt()
+//              win Branch
+            if ((playerRes > DillerResult && playerRes < 22)
+                || (DillerResult > 21 && playerRes < 22)) {
                 PlayerField.text = getString(R.string.WinMassage)
                 ComputerField.text = DillerResult.toString()
-            } else if (PlayerField.text.toString().toInt() < DillerResult || (DillerResult < 22 && PlayerField.text.toString().toInt() > 21)) {
+                playerScore+=3
+                winCount++
+//                Lose branch
+            } else if (playerRes < DillerResult || (DillerResult < 22 && playerRes > 21)) {
                 PlayerField.text = getString(R.string.LoseMassage)
                 ComputerField.text = DillerResult.toString()
+                loseCount++
+//                Drawn branch
             } else {
                 PlayerField.text = getString(R.string.DrawnGame)
+                ComputerField.text = DillerResult.toString()
+                playerScore+=1
+                drwnCount++
             }
-
         }
+        gameCount++
 
     }
 
-    fun GameLogickAI(): Int {
+    private fun GameLogickAI(): Int {
         var cardFromDeck = Random.nextInt(2,12)
         var BlackJackDeck = Random.nextInt(2,12) + cardFromDeck
         if (BlackJackDeck < 12) {
@@ -144,10 +167,23 @@ class GameFragment : Fragment() {
         }
     }
 
-    fun RefreshFun(){
+    private fun RefreshFun(){
         ComputerField.text=getString(R.string.GameName)
         PlayerField.text= arguments!!.getString(PLAYERNAME)
         mCount=0
+        gameCount=0
+        winCount=0
+        drwnCount=0
+        loseCount=0
+        playerScore=0
+    }
+
+//    special function to send data to activity and in activity data will work with database
+    fun toActivity(playerData: PlayerData){
+        val activity = activity
+        if (activity != null && !activity.isFinishing() && activity is MainActivity) {
+            activity.fromFragmentData(playerData)
+        }
     }
 
 
