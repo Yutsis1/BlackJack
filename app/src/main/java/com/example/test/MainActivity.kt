@@ -3,6 +3,7 @@ package com.example.test
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity(), RegisterBlank.AcceptPlaerName {
     private lateinit var dbHalper: DBHalper

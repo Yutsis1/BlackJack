@@ -207,7 +207,7 @@ class DBHalper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
     fun  updatePlayer(player: PlayerData){
         val db = this.writableDatabase
         val values = ContentValues()
-        values.put(COLUMN_USER_ID, player.id)
+//        values.put(COLUMN_USER_ID, player.id)
         values.put(COLUMN_USER_NAME, player.name)
         values.put(COLUMN_USER_GAME_COUNT,player.GameCount)
         values.put(COLUMN_USER_SCORE, player.score)

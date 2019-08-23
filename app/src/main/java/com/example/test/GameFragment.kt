@@ -53,8 +53,9 @@ class GameFragment : Fragment() {
         fun makeGameFragment(playerData: PlayerData):GameFragment{
             val fragment = GameFragment()
             val args= Bundle()
+            val playerName = playerData.name
             args.putString(
-                PLAYERNAME, playerData.name)
+                PLAYERNAME, playerName)
 
             fragment.arguments=args
             return fragment
@@ -71,12 +72,13 @@ class GameFragment : Fragment() {
         val view=inflater.inflate(R.layout.fragment_game, container, false)
         // присваеваем значения имени игрока
         val playerName = arguments!!.getString(PLAYERNAME) as String
-        PlayerField.text=playerName
+
 
 //        инитим текстовые поля
         PlayerField= view.findViewById(R.id.playerField)
         ComputerField=view.findViewById(R.id.computerField)
 
+        PlayerField.text=playerName
 //        инитим кнопки
         MoreButton=view.findViewById(R.id.moreButton)
         CheckButton=view.findViewById(R.id.checkButton)

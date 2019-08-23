@@ -13,7 +13,11 @@ GameFragment
      CheckPlayerDeck() - checking player hand and computer hand
      GameLogickAI(): Int - return computer's game score
      RefreshFun() - refresh table
+     toActivity() - function which parse to  Activity PlayerData
 RegisterBlank
     GetPlayerName() - take name from EditText
     interfaces
         AcceptPlayerName(personName: String)
+
+MainActivity
+
