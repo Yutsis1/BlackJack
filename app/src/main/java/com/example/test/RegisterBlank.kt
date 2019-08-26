@@ -9,10 +9,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.fragment.app.FragmentActivity
-import kotlinx.android.synthetic.main.fragment_register_blankt.*
-
-import com.example.test.DBHalper
 
 /**
  * A simple [Fragment] subclass.
@@ -22,7 +18,7 @@ import com.example.test.DBHalper
 
 class RegisterBlank : Fragment() {
 
-    private var listener: AcceptPlaerName? = null
+    private var listener: AcceptPlayerName? = null
 
     companion object {
         fun newInstance(): RegisterBlank{
@@ -34,13 +30,13 @@ class RegisterBlank : Fragment() {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
 
-//    стандартный генерируемый код не работает, потому что AcceptPlaerName не импломентируемо
-//        if (context is AcceptPlaerName) {
+//    стандартный генерируемый код не работает, потому что AcceptPlayerName не импломентируемо
+//        if (context is AcceptPlayerName) {
 //            listener = context
 //        } else {
 //            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
 //        }
-        this.listener = context as? AcceptPlaerName
+        this.listener = context as? AcceptPlayerName
 
     }
 
@@ -61,10 +57,16 @@ class RegisterBlank : Fragment() {
         return view
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
 
 
-    interface AcceptPlaerName {
+
+    interface AcceptPlayerName {
         fun AcceptPlayerName(personName: String)
+        fun showAllPlayers()
     }
 
 

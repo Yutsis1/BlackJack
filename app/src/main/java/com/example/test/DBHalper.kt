@@ -204,7 +204,7 @@ class DBHalper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
             return 0
     }
 
-    fun  updatePlayer(player: PlayerData){
+    fun  changePlayerData(player: PlayerData){
         val db = this.writableDatabase
         val values = ContentValues()
 //        values.put(COLUMN_USER_ID, player.id)
@@ -214,6 +214,25 @@ class DBHalper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         values.put(COLUM_USER_WINS, player.wins)
         values.put(COLUM_USER_LOSES, player.loses)
         values.put(COLUM_USER_DRAWNS, player.drawns)
+
+        db.update(
+            TABLE_USER, values, "$COLUMN_USER_ID = ?",
+            arrayOf(player.name.toString())
+        )
+    }
+
+    fun updateValuesPlayer (player: PlayerData){
+        val db = this.writableDatabase
+        val values = ContentValues()
+        val existPlayer = getPlayer(player.name)
+
+
+        values.put(COLUMN_USER_NAME, player.name)
+        values.put(COLUMN_USER_GAME_COUNT,player.GameCount + existPlayer.GameCount)
+        values.put(COLUMN_USER_SCORE, player.score+existPlayer.score)
+        values.put(COLUM_USER_WINS, player.wins+existPlayer.wins)
+        values.put(COLUM_USER_LOSES, player.loses+existPlayer.loses)
+        values.put(COLUM_USER_DRAWNS, player.drawns+ existPlayer.drawns)
 
         db.update(
             TABLE_USER, values, "$COLUMN_USER_ID = ?",

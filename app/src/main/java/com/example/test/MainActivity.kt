@@ -3,9 +3,9 @@ package com.example.test
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import com.example.test.dummy.DummyContent
 
-class MainActivity : AppCompatActivity(), RegisterBlank.AcceptPlaerName {
+class MainActivity : AppCompatActivity(), RegisterBlank.AcceptPlayerName, PLayersListFragment.chosePlayer {
     private lateinit var dbHalper: DBHalper
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,12 +14,24 @@ class MainActivity : AppCompatActivity(), RegisterBlank.AcceptPlaerName {
         dbHalper = DBHalper(this as Context)
 
 
+
+
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.root_layout, RegisterBlank.newInstance(), "Register")
                 .commit()
         }
+
+    }
+
+
+
+    override fun onPlayerSlecet(item: DummyContent.DummyItem?) {
+
+    }
+
+    override fun showAllPlayers() {
 
     }
 
@@ -57,7 +69,7 @@ class MainActivity : AppCompatActivity(), RegisterBlank.AcceptPlaerName {
     }
 
     fun fromFragmentData(playerData: PlayerData){
-
+        dbHalper.updateValuesPlayer(playerData)
     }
 
 
