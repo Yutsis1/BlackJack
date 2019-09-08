@@ -2,7 +2,7 @@ package com.example.test
 
 // data class for
 
-data class PlayerData(val id: Int?,
+data class PlayerData(val id: Int,
                       val GameCount: Int,
                       val name: String,
                       val score: Int,

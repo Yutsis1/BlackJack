@@ -123,7 +123,7 @@ class DBHalper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         }
 //        ToDo: make logic for returning non-null id
         val user = PlayerData(
-            id = null,
+            id = 0,
             GameCount = 0,
             score = 0,
             name = nameOfUser,
@@ -242,7 +242,7 @@ class DBHalper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
 
 
 
-    fun getAllrows(): ArrayList<PlayerData>{
+    fun getAllrows(): List<PlayerData>{
         // array of columns to fetch
         val columns = arrayOf(COLUMN_USER_ID, COLUM_USER_WINS, COLUMN_USER_NAME, COLUM_USER_LOSES, COLUM_USER_DRAWNS)
 
