@@ -30,6 +30,6 @@
             android:text="@string/choseExistPlayer"
             android:layout_marginTop="100dp"
             android:layout_marginLeft="200dp"
-            android:id="@+id/dbList"/>
+            android:id="@+id/choseExistButton"/>
 
 </FrameLayout>

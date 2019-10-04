@@ -47,12 +47,18 @@ class RegisterBlank : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_register_blankt, container, false)
         val AcceptButton: Button = view.findViewById(R.id.AcceptButton)
+        val choseExistPlaerButton: Button = view.findViewById(R.id.choseExistButton)
         val PlayerNameInput: EditText = view.findViewById(R.id.PlayerNameInput)
 
         AcceptButton.setOnClickListener{
             listener?.AcceptPlayerName(PlayerNameInput.text.toString())
             Toast.makeText(view.context, "button_pressed", Toast.LENGTH_SHORT).show()
         }
+
+        choseExistPlaerButton.setOnClickListener {
+            listener?.showAllPlayers()
+        }
+
 
         return view
     }

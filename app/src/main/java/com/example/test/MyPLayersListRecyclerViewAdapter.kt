@@ -8,7 +8,6 @@ import android.widget.TextView
 
 
 import com.example.test.PLayersListFragment.chosePlayer
-import com.example.test.dummy.DummyContent
 import com.example.test.dummy.DummyContent.DummyItem
 
 import kotlinx.android.synthetic.main.fragment_playerslist.view.*
@@ -19,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_playerslist.view.*
  * TODO: Replace the implementation with code for your data type.
  */
 class MyPLayersListRecyclerViewAdapter(
-    private val mValues: List<DummyItem>,
+    private val mValues: List<PlayerData>,
     private val mListener: chosePlayer?
 ) : RecyclerView.Adapter<MyPLayersListRecyclerViewAdapter.ViewHolder>() {
 
@@ -27,7 +26,7 @@ class MyPLayersListRecyclerViewAdapter(
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as DummyItem
+            val item = v.tag as PlayerData
             // Notify the active callbacks interface (the activity, if the fragment is attached to
             // one) that an item has been selected.
             mListener?.onPlayerSlecet(item)
@@ -42,8 +41,9 @@ class MyPLayersListRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        holder.mIdView.text = item.id
-        holder.mContentView.text = item.content
+        holder.idView.text = item.id.toString()
+        holder.nameView.text = item.name
+        holder.scoreView.text = item.score.toString()
 
         with(holder.mView) {
             tag = item
@@ -54,11 +54,12 @@ class MyPLayersListRecyclerViewAdapter(
     override fun getItemCount(): Int = mValues.size
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val mIdView: TextView = mView.item_number
-        val mContentView: TextView = mView.content
+        val idView: TextView = mView.item_number
+        val nameView: TextView = mView.name
+        val scoreView: TextView = mView.score
 
         override fun toString(): String {
-            return super.toString() + " '" + mContentView.text + "'"
+            return super.toString() + " '" + nameView.text + "'"
         }
     }
 }

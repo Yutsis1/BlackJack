@@ -177,32 +177,32 @@ class DBHalper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         return null
     }
 
-    fun getLastID():Int {
-        val columns = arrayOf(COLUMN_USER_ID, COLUM_USER_WINS, COLUMN_USER_NAME, COLUM_USER_LOSES, COLUM_USER_DRAWNS)
-        // sorting orders
-        val sortOrder = "$COLUMN_USER_NAME ASC"
-
-        val db = this.readableDatabase
-        // query the user table
-        val cursor = db.query(
-            TABLE_USER, //Table to query
-            columns,            //columns to return
-            null,     //columns for the WHERE clause
-            null,  //The values for the WHERE clause
-            null,      //group the rows
-            null,       //filter by row groups
-            sortOrder
-        )
-        cursor.moveToLast()
-        val lastId = cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)).toInt()
-        print(cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)).toInt())
-        if (cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)).toInt() == null) {
-            val lastId = cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)).toInt()
-            db.close()
-            return lastId
-        } else
-            return 0
-    }
+//    fun getLastID():Int {
+//        val columns = arrayOf(COLUMN_USER_ID, COLUM_USER_WINS, COLUMN_USER_NAME, COLUM_USER_LOSES, COLUM_USER_DRAWNS)
+//        // sorting orders
+//        val sortOrder = "$COLUMN_USER_NAME ASC"
+//
+//        val db = this.readableDatabase
+//        // query the user table
+//        val cursor = db.query(
+//            TABLE_USER, //Table to query
+//            columns,            //columns to return
+//            null,     //columns for the WHERE clause
+//            null,  //The values for the WHERE clause
+//            null,      //group the rows
+//            null,       //filter by row groups
+//            sortOrder
+//        )
+//        cursor.moveToLast()
+////        val lastId = cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)).toInt()
+//        print(cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)).toInt())
+//        if (cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)).toInt() == null) {
+//            val lastId = cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)).toInt()
+//            db.close()
+//            return lastId
+//        } else
+//            return 0
+//    }
 
     fun  changePlayerData(player: PlayerData){
         val db = this.writableDatabase

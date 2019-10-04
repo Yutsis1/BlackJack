@@ -46,7 +46,7 @@ class PLayersListFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyPLayersListRecyclerViewAdapter(DummyContent.ITEMS, listener)
+                adapter = MyPLayersListRecyclerViewAdapter( listUsers, listener)
             }
         }
         return view
@@ -54,17 +54,20 @@ class PLayersListFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is chosePlayer) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement onPlayerSlecet")
-        }
+//        if (context is chosePlayer) {
+//            listener = context
+//        } else {
+//            throw RuntimeException(context.toString() + " must implement onPlayerSlecet")
+//        }
+        this.listener = context as? chosePlayer
     }
 
     override fun onDetach() {
         super.onDetach()
         listener = null
     }
+
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -79,21 +82,16 @@ class PLayersListFragment : Fragment() {
      */
     interface chosePlayer  {
         // TODO: Update argument type and name
-        fun onPlayerSlecet(item: DummyItem?)
+        fun onPlayerSlecet(item: PlayerData)
     }
 
     companion object {
+        lateinit var listUsers: List<PlayerData>
 
-        // TODO: Customize parameter argument names
         const val ARG_COLUMN_COUNT = "column-count"
 
         // TODO: Customize parameter initialization
         @JvmStatic
-        fun addPlayersOnScreen(columnCount: Int) =
-            PLayersListFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
-                }
-            }
+        fun addPlayersOnScreen() = PLayersListFragment()
     }
 }

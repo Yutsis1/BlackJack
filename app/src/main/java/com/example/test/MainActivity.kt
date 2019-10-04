@@ -27,12 +27,25 @@ class MainActivity : AppCompatActivity(), RegisterBlank.AcceptPlayerName, PLayer
 
 
 
-    override fun onPlayerSlecet(item: DummyContent.DummyItem?) {
+    override fun onPlayerSlecet(item: PlayerData) {
+        val detailFragment = GameFragment.makeGameFragment(item)
 
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.root_layout, detailFragment, "Game")
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun showAllPlayers() {
+        PLayersListFragment.listUsers = dbHalper.getAllrows()
 
+        val playersListFragment = PLayersListFragment.addPlayersOnScreen()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.root_layout, playersListFragment, "Game")
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun AcceptPlayerName(personName: String){
@@ -68,6 +81,8 @@ class MainActivity : AppCompatActivity(), RegisterBlank.AcceptPlayerName, PLayer
 
     }
 
+
+//    function need to transfer PlayerData from Gamefragment
     fun fromFragmentData(playerData: PlayerData){
         dbHalper.updateValuesPlayer(playerData)
     }
