@@ -217,7 +217,7 @@ class DBHalper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
 
         db.update(
             TABLE_USER, values, "$COLUMN_USER_ID = ?",
-            arrayOf(player.name.toString())
+            arrayOf(player.name)
         )
     }
 
@@ -236,7 +236,7 @@ class DBHalper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
 
         db.update(
             TABLE_USER, values, "$COLUMN_USER_ID = ?",
-            arrayOf(player.name.toString())
+            arrayOf(player.name)
         )
     }
 
