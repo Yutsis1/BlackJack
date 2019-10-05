@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_playerslist.view.*
  * TODO: Replace the implementation with code for your data type.
  */
 class MyPLayersListRecyclerViewAdapter(
-    private val mValues: List<PlayerData>,
+    private val mValues: ArrayList<PlayerData>,
     private val mListener: chosePlayer?
 ) : RecyclerView.Adapter<MyPLayersListRecyclerViewAdapter.ViewHolder>() {
 

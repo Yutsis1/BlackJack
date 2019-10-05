@@ -38,9 +38,11 @@ class MainActivity : AppCompatActivity(), RegisterBlank.AcceptPlayerName, PLayer
     }
 
     override fun showAllPlayers() {
-        PLayersListFragment.listUsers = dbHalper.getAllrows()
+//        todo write exception
+
 
         val playersListFragment = PLayersListFragment.addPlayersOnScreen()
+        playersListFragment.listUsers = dbHalper.getAllrows()
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.root_layout, playersListFragment, "Game")
@@ -83,8 +85,8 @@ class MainActivity : AppCompatActivity(), RegisterBlank.AcceptPlayerName, PLayer
 
 
 //    function need to transfer PlayerData from Gamefragment
-    fun fromFragmentData(playerData: PlayerData){
-        dbHalper.updateValuesPlayer(playerData)
+    fun fromGameFragmentData(playerData: PlayerData){
+        dbHalper.changePlayerData(playerData)
     }
 
 

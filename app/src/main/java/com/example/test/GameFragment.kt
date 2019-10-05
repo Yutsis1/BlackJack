@@ -184,7 +184,7 @@ class GameFragment : Fragment() {
     fun toActivity(playerData: PlayerData){
         val activity = activity
         if (activity != null && !activity.isFinishing() && activity is MainActivity) {
-            activity.fromFragmentData(playerData)
+            activity.fromGameFragmentData(playerData)
         }
     }
 

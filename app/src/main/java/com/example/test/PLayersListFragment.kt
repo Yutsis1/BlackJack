@@ -25,6 +25,8 @@ class PLayersListFragment : Fragment() {
 
     private var listener: chosePlayer? = null
 
+    lateinit var listUsers: ArrayList<PlayerData>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -69,6 +71,7 @@ class PLayersListFragment : Fragment() {
 
 
 
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -86,7 +89,7 @@ class PLayersListFragment : Fragment() {
     }
 
     companion object {
-        lateinit var listUsers: List<PlayerData>
+
 
         const val ARG_COLUMN_COUNT = "column-count"
 

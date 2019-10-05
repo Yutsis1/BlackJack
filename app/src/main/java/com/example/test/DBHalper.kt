@@ -177,32 +177,6 @@ class DBHalper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         return null
     }
 
-//    fun getLastID():Int {
-//        val columns = arrayOf(COLUMN_USER_ID, COLUM_USER_WINS, COLUMN_USER_NAME, COLUM_USER_LOSES, COLUM_USER_DRAWNS)
-//        // sorting orders
-//        val sortOrder = "$COLUMN_USER_NAME ASC"
-//
-//        val db = this.readableDatabase
-//        // query the user table
-//        val cursor = db.query(
-//            TABLE_USER, //Table to query
-//            columns,            //columns to return
-//            null,     //columns for the WHERE clause
-//            null,  //The values for the WHERE clause
-//            null,      //group the rows
-//            null,       //filter by row groups
-//            sortOrder
-//        )
-//        cursor.moveToLast()
-////        val lastId = cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)).toInt()
-//        print(cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)).toInt())
-//        if (cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)).toInt() == null) {
-//            val lastId = cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)).toInt()
-//            db.close()
-//            return lastId
-//        } else
-//            return 0
-//    }
 
     fun  changePlayerData(player: PlayerData){
         val db = this.writableDatabase
@@ -217,34 +191,23 @@ class DBHalper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
 
         db.update(
             TABLE_USER, values, "$COLUMN_USER_ID = ?",
-            arrayOf(player.name)
+            arrayOf(player.id.toString())
         )
-    }
-
-    fun updateValuesPlayer (player: PlayerData){
-        val db = this.writableDatabase
-        val values = ContentValues()
-        val existPlayer = getPlayer(player.name)
-
-
-        values.put(COLUMN_USER_NAME, player.name)
-        values.put(COLUMN_USER_GAME_COUNT,player.GameCount + existPlayer.GameCount)
-        values.put(COLUMN_USER_SCORE, player.score+existPlayer.score)
-        values.put(COLUM_USER_WINS, player.wins+existPlayer.wins)
-        values.put(COLUM_USER_LOSES, player.loses+existPlayer.loses)
-        values.put(COLUM_USER_DRAWNS, player.drawns+ existPlayer.drawns)
-
-        db.update(
-            TABLE_USER, values, "$COLUMN_USER_ID = ?",
-            arrayOf(player.name)
-        )
+        db.close()
     }
 
 
 
-    fun getAllrows(): List<PlayerData>{
+
+    fun getAllrows(): ArrayList<PlayerData>{
         // array of columns to fetch
-        val columns = arrayOf(COLUMN_USER_ID, COLUM_USER_WINS, COLUMN_USER_NAME, COLUM_USER_LOSES, COLUM_USER_DRAWNS)
+        val columns = arrayOf(COLUMN_USER_ID,
+            COLUMN_USER_GAME_COUNT,
+            COLUMN_USER_SCORE,
+            COLUMN_USER_NAME,
+            COLUM_USER_WINS,
+            COLUM_USER_LOSES,
+            COLUM_USER_DRAWNS)
 
         // sorting orders
         val sortOrder = "$COLUMN_USER_NAME ASC"
