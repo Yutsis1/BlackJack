@@ -123,7 +123,7 @@ class DBHalper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         }
 //        ToDo: make logic for returning non-null id
         val user = PlayerData(
-            id = null,
+            id = 0,
             GameCount = 0,
             score = 0,
             name = nameOfUser,
@@ -177,34 +177,8 @@ class DBHalper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         return null
     }
 
-    fun getLastID():Int {
-        val columns = arrayOf(COLUMN_USER_ID, COLUM_USER_WINS, COLUMN_USER_NAME, COLUM_USER_LOSES, COLUM_USER_DRAWNS)
-        // sorting orders
-        val sortOrder = "$COLUMN_USER_NAME ASC"
 
-        val db = this.readableDatabase
-        // query the user table
-        val cursor = db.query(
-            TABLE_USER, //Table to query
-            columns,            //columns to return
-            null,     //columns for the WHERE clause
-            null,  //The values for the WHERE clause
-            null,      //group the rows
-            null,       //filter by row groups
-            sortOrder
-        )
-        cursor.moveToLast()
-        val lastId = cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)).toInt()
-        print(cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)).toInt())
-        if (cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)).toInt() == null) {
-            val lastId = cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)).toInt()
-            db.close()
-            return lastId
-        } else
-            return 0
-    }
-
-    fun  updatePlayer(player: PlayerData){
+    fun  changePlayerData(player: PlayerData){
         val db = this.writableDatabase
         val values = ContentValues()
 //        values.put(COLUMN_USER_ID, player.id)
@@ -217,15 +191,23 @@ class DBHalper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
 
         db.update(
             TABLE_USER, values, "$COLUMN_USER_ID = ?",
-            arrayOf(player.name.toString())
+            arrayOf(player.id.toString())
         )
+        db.close()
     }
+
 
 
 
     fun getAllrows(): ArrayList<PlayerData>{
         // array of columns to fetch
-        val columns = arrayOf(COLUMN_USER_ID, COLUM_USER_WINS, COLUMN_USER_NAME, COLUM_USER_LOSES, COLUM_USER_DRAWNS)
+        val columns = arrayOf(COLUMN_USER_ID,
+            COLUMN_USER_GAME_COUNT,
+            COLUMN_USER_SCORE,
+            COLUMN_USER_NAME,
+            COLUM_USER_WINS,
+            COLUM_USER_LOSES,
+            COLUM_USER_DRAWNS)
 
         // sorting orders
         val sortOrder = "$COLUMN_USER_NAME ASC"

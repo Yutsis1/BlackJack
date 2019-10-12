@@ -11,7 +11,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/GameName"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
     <Button
             android:text="@string/AcceptButton"
             android:layout_marginTop="100dp"
@@ -23,6 +23,13 @@
             android:inputType="textPersonName"
             android:text="@string/InputName"
             android:ems="10"
-            android:id="@+id/PlayerNameInput"/>
+            android:id="@+id/PlayerNameInput" android:autofillHints=""/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choseExistPlayer"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="200dp"
+            android:id="@+id/choseExistButton"/>
 
 </FrameLayout>

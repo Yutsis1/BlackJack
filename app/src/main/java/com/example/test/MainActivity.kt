@@ -3,15 +3,17 @@ package com.example.test
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import com.example.test.dummy.DummyContent
 
-class MainActivity : AppCompatActivity(), RegisterBlank.AcceptPlaerName {
+class MainActivity : AppCompatActivity(), RegisterBlank.AcceptPlayerName, PLayersListFragment.chosePlayer {
     private lateinit var dbHalper: DBHalper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         dbHalper = DBHalper(this as Context)
+
+
 
 
         if (savedInstanceState == null) {
@@ -21,6 +23,31 @@ class MainActivity : AppCompatActivity(), RegisterBlank.AcceptPlaerName {
                 .commit()
         }
 
+    }
+
+
+
+    override fun onPlayerSlecet(item: PlayerData) {
+        val detailFragment = GameFragment.makeGameFragment(item)
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.root_layout, detailFragment, "Game")
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun showAllPlayers() {
+//        todo write exception
+
+
+        val playersListFragment = PLayersListFragment.addPlayersOnScreen()
+        playersListFragment.listUsers = dbHalper.getAllrows()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.root_layout, playersListFragment, "Game")
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun AcceptPlayerName(personName: String){
@@ -56,8 +83,10 @@ class MainActivity : AppCompatActivity(), RegisterBlank.AcceptPlaerName {
 
     }
 
-    fun fromFragmentData(playerData: PlayerData){
 
+//    function need to transfer PlayerData from Gamefragment
+    fun fromGameFragmentData(playerData: PlayerData){
+        dbHalper.changePlayerData(playerData)
     }
 
 
